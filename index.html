@@ -175,12 +175,12 @@
 						<span>講堂資訊</span>
 					</a>
 				</li>
-				<li class="menu-item">
+				<!--<li class="menu-item">
 					<a href="精華.html">
 						<span class="menu-item-title">PROGRAM</span>
 						<span>節目精華</span>
 					</a>
-				</li>
+				</li>-->
 			</ul>
 		</div>
 		 <span class="nav-text">PHOTOGRAPHY</span>
@@ -203,9 +203,9 @@
           <li>
             <a href="講堂.html"><span>講堂</span></a>
           </li>
-          <li>
+          <!--<li>
             <a href="精華.html"><span>節目精華</span></a>
-          </li>
+          </li>-->
         </ul>
         <span class="nav-text">PHOTOGRAPHY</span>
       </nav>
@@ -255,7 +255,76 @@
 
 			</footer>
     </div>
-    <script src="common/js/main.js"></script>
+<script src="common/js/main.js"></script>
+<!-- 引入 jquery.validate -->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"
+  integrity="sha256-sPB0F50YUDK0otDnsfNHawYmA5M0pjjUf4TvRJkGFrI="
+  crossorigin="anonymous"
+></script>
+<!-- 引入串接腳本 -->
+<script
+  type="text/javascript"
+  src="https://www.appedu.com.tw/Librarys/Scripts/distribution2020.js"
+  charset="UTF-8"
+></script>
+
+<script>
+  $(document).ready(function () {
+    var $form = $("form.form-distribution");
+    loadLocation({
+      city: {
+        element: $form.find("[name=city]"),
+        defaultLabel: "請選縣市",
+        errorMessage: "無法載入縣市資料",
+      },
+      area: {
+        element: $form.find("[name=area]"),
+        defaultLabel: "請選地區",
+        errorMessage: "無法載入地區資料",
+      },
+    });
+
+    $form
+      .submit(function (e) {
+        e.preventDefault();
+      })
+      .validate({
+        // debug: true,
+        submitHandler: distributionSubmitHandler({
+          successMessage: "資料已送出，將安排專人與您聯絡",
+          errorMessage: "您輸入的資料有誤或者已輸入過相同資料",
+        }),
+        rules: {
+          name: "required",
+          email: { required: true, email: true },
+          cellphone: { required: true, cellphone: true },
+          city: "required",
+          area: "required",
+          remark: "required",
+          course: "required",
+          agreement: "required",
+        },
+        messages: {
+          name: "請輸入您的姓名",
+          email: {
+            required: "請輸入您的E-mail信箱",
+            email: "請輸入有效的E-mail信箱",
+          },
+          cellphone: {
+            required: "請輸入您的聯絡電話",
+            cellphone: "請輸入有效的聯絡電話",
+          },
+          city: "請選擇縣市",
+          area: "請選擇地區",
+          remark: "",
+          course: "請選擇想學課程",
+          agreement: "您尚未接受隱私權使用條款",
+        },
+      });
+  });
+</script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37287051-1"></script>
     <script>
